@@ -1,7 +1,7 @@
 from telegram import Update, KeyboardButton, ReplyKeyboardMarkup
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
 
-TOKEN = "8816406377:AAHQDO38nPxOfxA8nFK-RIBqHrJ14dMi3rA"  # Вставь сюда токен от BotFather
+TOKEN = os.environ.get("TOKEN")  # Токен из переменных окружения
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # Создаём кнопку для отправки номера
