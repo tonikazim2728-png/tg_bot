@@ -11,11 +11,7 @@ if not TOKEN:
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
         "📱 Введите номер телефона.\n"
-        "Поддерживаются форматы:\n"
-        "+79037866914\n"
-        "79037866914\n"
-        "89037866914\n\n"
-        "Я сам приведу к нужному виду."
+        "Поддерживаются все человеческие (российские) форматы:\n"
     )
 
 async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
