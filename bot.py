@@ -1,4 +1,4 @@
-from telegram import Update
+from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
 import os
 import re
@@ -12,13 +12,13 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
         "📱 Введите номер телефона в формате:\n"
         "Например: +79037866914\n\n"
-        "Я добавлю t.me/ и покажу ссылку."
+        "Я добавлю t.me/ и покажу ссылку в виде кнопки."
     )
 
 async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = update.message.text.strip()
     
-    # Проверяем, что номер начинается с + и содержит только цифры и +
+    # Проверяем формат номера
     if not re.match(r'^\+\d+$', text):
         await update.message.reply_text(
             "❌ Неверный формат!\n"
@@ -30,9 +30,16 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # Формируем ссылку
     result = f"t.me/{text}"
     
+    # Создаём кнопку с ссылкой
+    button = InlineKeyboardButton(
+        text="🔗 Открыть ссылку", 
+        url=result
+    )
+    reply_markup = InlineKeyboardMarkup([[button]])
+    
     await update.message.reply_text(
-        f"✅ Ваш номер: {text}\n"
-        f"🔗 Ссылка: {result}"
+        f"✅ Ваш номер: {text}",
+        reply_markup=reply_markup
     )
 
 def main():
